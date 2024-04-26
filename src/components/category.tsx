@@ -75,6 +75,7 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-3">
+            {expenses?.length == 0 && <p className="text-gray-400 text-sm text-center">There are no expenses added!</p>}
             {expenses?.map(expense => (
               <Expense key={expense.id} id={expense.id} name={expense.name} amount={expense.amount} people={expense.people}/>
             ))}

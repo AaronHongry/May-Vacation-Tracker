@@ -16,7 +16,7 @@ export default function Home() {
         <h2 className="text-lg text-center font-semibold text-gray-400">May 3rd - May 8th</h2>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 pb-12">
         <Category name="Amenities" nameSingle="Amenity" description="Add accomodations, tickets, etc." collection="amenities"/>
         <Category name="Ubers" nameSingle="Uber" description="Add all the Ubers, Lyfts, etc." collection="ubers"/>
         <Category name="Food" nameSingle="Food" description="Add food, snacks, drinks, etc." collection="food"/>
