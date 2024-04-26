@@ -64,12 +64,12 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
       }
     };
     fetchExpenses();
-  }, []);
+  }, [expenses]);
 
   return (
     <Card className="bg-slate-950 border-slate-800 rounded-2xl border-2">
         <CardHeader>
-          <CardTitle>{name}</CardTitle>
+          <CardTitle className="text-3xl font-bold">{name}</CardTitle>
           <CardDescription className="text-gray-400">{description}</CardDescription>
           <Separator className="bg-gray-400"/>
         </CardHeader>
@@ -78,9 +78,11 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
             {expenses?.map(expense => (
               <Expense key={expense.id} id={expense.id} name={expense.name} amount={expense.amount} people={expense.people}/>
             ))}
-            <AddExpense name={nameSingle} description={description}/>
           </div>
         </CardContent>
+        <CardFooter className="justify-center items-center">
+          <AddExpense name={name} nameSingle={nameSingle} description={description}/>
+          </CardFooter>
       </Card>
   );
 }
