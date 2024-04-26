@@ -13,6 +13,7 @@ import React, { useState, useEffect } from "react";
 import { db } from "@/firebase/config";
 import { collection, getDocs } from 'firebase/firestore';
 import { ExpenseProps } from "@/types";
+import AddExpense from "./addExpense";
 
 interface CategoryProps {
   name: string;
@@ -77,7 +78,7 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
             {expenses?.map(expense => (
               <Expense key={expense.id} id={expense.id} name={expense.name} amount={expense.amount} people={expense.people}/>
             ))}
-            <button className="bg-slate-50 text-slate-950 px-4 py-2 rounded-xl">Add {nameSingle}</button>
+            <AddExpense name={nameSingle} description={description}/>
           </div>
         </CardContent>
       </Card>
