@@ -3,4 +3,5 @@ export interface ExpenseProps {
     name: string;
     amount: number;
     people: string[];
+    date: string;
   }

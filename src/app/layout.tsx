@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${GeistSans.className} bg-stone-950 text-slate-100`}>
+      <body id="layoutBody" className={`${inter.className} ${GeistSans.className} bg-stone-950 text-slate-100 `}>
         {children}
         </body>
     </html>
