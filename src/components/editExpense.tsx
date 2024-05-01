@@ -31,7 +31,7 @@ async function editExpense(id: string, category: string, name: string, amount: n
             amount: amount,
             people: people,
         });
-        console.log("dwad");
+        console.log("Edited Doc!");
       } catch (e) {
         console.error("Error editing expense: ", e);
     }

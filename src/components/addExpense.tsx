@@ -40,6 +40,7 @@ async function addExpense(category: string, name: string, amount: number, people
         } catch (e) {
             console.error("Error updating expense id of expense: ", e);
         }
+        console.log("Added doc!");
       } catch (e) {
         console.error("Error adding expense: ", e);
     }
