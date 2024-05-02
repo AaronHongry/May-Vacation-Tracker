@@ -11,7 +11,9 @@ export default function Home() {
   const [scope, animate] = useAnimate();
   const [isTitleDone, setIsTitleDone] = useState(false);
 
-  const [expenses, setExpenses] = useState<ExpenseProps[]>([]);
+  const [amenitiesExpenses, setAmenitiesExpenses] = useState<ExpenseProps[]>([]);
+  const [ubersExpenses, setUbersExpenses] = useState<ExpenseProps[]>([]);
+  const [foodExpenses, setFoodExpenses] = useState<ExpenseProps[]>([]);
 
   const containerVariants = {
     initial: {},
@@ -43,10 +45,6 @@ export default function Home() {
     handleAnimate();
   }, []);
 
-  const handlePassing = (expenses: ExpenseProps[]) => {
-    setExpenses(expenses);
-  }
-
   return (
     <div ref={scope} className={`${isTitleDone ? "" : "h-screen"} overflow-hidden p-4 relative justify-center`}>
       <motion.div id="title" initial={{ y: "200%", opacity: 0}} className={`${isTitleDone ? "hidden" : ""} py-14 px-8 z-50 absolute justify-items-center`}>
@@ -61,12 +59,12 @@ export default function Home() {
       </motion.div>
 
       <motion.div initial="initial" animate={isTitleDone ? "animate" : "initial"} variants={containerVariants} id="num" className="flex flex-col md:flex-row gap-8 pb-12">
-        <motion.div variants={itemVariants}><Category name="Amenities" nameSingle="Amenity" description="Add accomodations, tickets, etc." collection="amenities" passExpense={handlePassing}/></motion.div>
-        <motion.div variants={itemVariants}><Category name="Ubers" nameSingle="Uber" description="Add all the Ubers, Lyfts, etc." collection="ubers" passExpense={handlePassing}/></motion.div>
-        <motion.div variants={itemVariants}><Category name="Food" nameSingle="Food" description="Add food, snacks, drinks, etc." collection="food" passExpense={handlePassing}/></motion.div>  
+        <motion.div variants={itemVariants}><Category name="Amenities" nameSingle="Amenity" description="Add accomodations, tickets, etc." collection="amenities" passExpense={setAmenitiesExpenses}/></motion.div>
+        <motion.div variants={itemVariants}><Category name="Ubers" nameSingle="Uber" description="Add all the Ubers, Lyfts, etc." collection="ubers" passExpense={setUbersExpenses}/></motion.div>
+        <motion.div variants={itemVariants}><Category name="Food" nameSingle="Food" description="Add food, snacks, drinks, etc." collection="food" passExpense={setFoodExpenses}/></motion.div>  
       </motion.div>
       <div className="h-24"/>
-      <TotalBar collection={expenses}/>
+      <TotalBar amenitiesCollection={amenitiesExpenses} ubersCollection={ubersExpenses} foodCollection={foodExpenses}/>
     </div>
   );
 }
