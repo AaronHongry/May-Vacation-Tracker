@@ -24,6 +24,7 @@ interface CategoryProps {
   nameSingle: string;
   description: string;
   collection: string;
+  passExpense: (expense: ExpenseProps[]) => void;
 }
 
 async function fetchCollectionData(collectionName: string): Promise<ExpenseProps[]> {
@@ -56,7 +57,7 @@ function Expense({id, name, amount, people, date}: ExpenseProps) {
   );
 }
 
-const Category: React.FC<CategoryProps> = ({name, nameSingle, description, collection}) => {
+const Category: React.FC<CategoryProps> = ({name, nameSingle, description, collection, passExpense}) => {
   const [expenses, setExpenses] = useState<ExpenseProps[]>();
   const [expenseOpen, setExpenseOpen] = useState<string | null>(null);
   const [deleteOpen, setDeleteOpen] = useState<string | null>(null);
@@ -69,6 +70,7 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
       const fetchedData = await fetchCollectionData(collection);
       console.log("fetchCat");
       setExpenses(fetchedData);
+      passExpense(fetchedData);
     } catch (error) {
       console.error("Failed to fetch expenses:", error);
     }
