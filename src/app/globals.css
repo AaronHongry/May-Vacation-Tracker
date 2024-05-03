@@ -12,3 +12,7 @@
         padding: 10px;
     }
 }
+
+body {
+    height: 90vh;
+}
