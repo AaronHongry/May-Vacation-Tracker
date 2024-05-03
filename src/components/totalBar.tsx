@@ -96,7 +96,9 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
                 setTenzinUbers(prev => preciseCalculate(prev, (uber.amount / uber.people.length)));
                 setTenzinTotal(prev => preciseCalculate(prev, (uber.amount / uber.people.length)));
             }
-            setTotal(prev => preciseCalculate(prev, uber.amount));
+            if (!expensesCounted.includes(uber.id)) {
+                setTotal(prev => preciseCalculate(prev, uber.amount));
+            }
         });
 
         foodCollection.filter(food => !expensesCounted.includes(food.id)).forEach(food => {
