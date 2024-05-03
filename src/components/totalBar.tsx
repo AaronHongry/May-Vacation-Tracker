@@ -9,12 +9,16 @@ interface TotalBarProps {
     amenitiesCollection: ExpenseProps[];
     ubersCollection: ExpenseProps[];
     foodCollection: ExpenseProps[];
+    tabOpen: () => void;
+    tabClose: () => void;
 }
 
-const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection, foodCollection}) => {
+const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection, foodCollection, tabOpen, tabClose}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const [scope, animate] = useAnimate();
+
+    const [expensesCounted, setExpensesCounted] = useState<string[]>([]);
 
     const [aaronTotal, setAaronTotal] = useState(0.0);
     const [aaronAmenities, setAaronAmenities] = useState(0.0); 
@@ -36,20 +40,22 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
     const handleTab = () => {
         if (!isOpen) {
             animate([
-                ["#tab", { y: "20%" }, { duration: 0.4, ease: "backOut" }]
+                ["#tab", { y: "-80%" }, { duration: 0.4, ease: "backOut" }]
             ]);
             animate([
-                ["#backdrop", { backgroundColor: "rgba(0, 0, 0, 0.8)" }, { duration: 0.1 }]
+                ["#items", { opacity: 1 }, { duration: 0.2, delay: 0.1 }]
             ]);
+            tabOpen();
             setIsOpen(true);
         }
         else {
             animate([
-                ["#tab", { y: "88.5%" }, { duration: 0.6, ease: "anticipate" }]
+                ["#items", { opacity: 0 }, { duration: 0.2 }]
             ]);
             animate([
-                ["#backdrop", { backgroundColor: "rgba(0, 0, 0, 0)" }, { duration: 0.5 }]
+                ["#tab", { y: "-11.5%" }, { duration: 0.6, ease: "anticipate" }]
             ]);
+            tabClose();
             setIsOpen(false);
         }
     };
@@ -59,7 +65,8 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
     };
 
     useEffect(() => {
-        amenitiesCollection.forEach(amenity => {
+        amenitiesCollection.filter(amenity => !expensesCounted.includes(amenity.id)).forEach(amenity => {
+            setExpensesCounted(prev => [...prev, amenity.id]);
             if (amenity.people.includes("Aaron")) {
                 setAaronAmenities(prev => preciseCalculate(prev, (amenity.amount / amenity.people.length)));
                 setAaronTotal(prev => preciseCalculate(prev, (amenity.amount / amenity.people.length)));
@@ -75,7 +82,8 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
             setTotal(prev => preciseCalculate(prev, amenity.amount));
         });
 
-        ubersCollection.forEach(uber => {
+        ubersCollection.filter(uber => !expensesCounted.includes(uber.id)).forEach(uber => {
+            setExpensesCounted(prev => [...prev, uber.id]);
             if (uber.people.includes("Aaron")) {
                 setAaronUbers(prev => preciseCalculate(prev, (uber.amount / uber.people.length)));
                 setAaronTotal(prev => preciseCalculate(prev, (uber.amount / uber.people.length)));
@@ -91,7 +99,8 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
             setTotal(prev => preciseCalculate(prev, uber.amount));
         });
 
-        foodCollection.forEach(food => {
+        foodCollection.filter(food => !expensesCounted.includes(food.id)).forEach(food => {
+            setExpensesCounted(prev => [...prev, food.id]);
             if (food.people.includes("Aaron")) {
                 setAaronFood(prev => preciseCalculate(prev, (food.amount / food.people.length)));
                 setAaronTotal(prev => preciseCalculate(prev, (food.amount / food.people.length)));
@@ -126,16 +135,16 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
 
     return (
         <div ref={scope}>
-            <motion.div id="backdrop" initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }} className={`fixed top-0 left-0 bg-black/80 z-0 w-full h-full justify-end items-center flex flex-col`}>
-                <motion.div id="tab" initial={{ y: "100%" }} animate={{ y: "88.5%", transition: { delay: 1.2, duration: 0.3 } }} onClick={handleTab} className={`h-full fixed left-0 top-0 z-50 bg-slate-950 border-t-2 border-slate-800 rounded-t-xl drop-shadow-xl w-full px-5`}>
-                    <div className="h-24 w-full flex flex-row justify-between items-center ">
+            <motion.div>
+                <motion.div id="tab" initial={{ y: "0%" }} animate={{ y: "-11.5%", transition: { delay: 1.2, duration: 0.3 } }} onClick={handleTab} className={`h-full fixed left-0 top-full z-50 bg-slate-950 border-t-2 border-slate-800 rounded-t-xl drop-shadow-xl w-full px-5`}>
+                    <div className="h-24 w-full flex flex-row justify-between items-center">
                         <h1 className="text-3xl font-extrabold">Total:</h1>
                         <h1 className="text-3xl font-extrabold">${total}</h1>
                     </div>
 
                     <Separator className="bg-gray-400"/>
 
-                    <div className="overflow-y-auto tab-scroll-height">
+                    <motion.div initial={{ opacity: 0 }} id="items" className="overflow-y-auto tab-scroll-height">
                         <div className="flex flex-row justify-between pt-4 pb-1">
                             <h2 className="text-2xl font-bold">Aaron</h2>
                             <h2 className="text-2xl font-bold">${aaronTotal.toFixed(2)}</h2>
@@ -251,7 +260,7 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
                         ))}
 
                         <div className="h-10"/>
-                    </div>
+                    </motion.div>
                 </motion.div>
             </motion.div>
         </div>

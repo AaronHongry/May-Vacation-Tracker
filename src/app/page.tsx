@@ -41,6 +41,22 @@ export default function Home() {
     }, 1180);
   };
 
+  const handleTabOpen = () => {
+    const backdrop = document.getElementById("backdrop");
+    animate([
+      ["#backdrop", { backgroundColor: "rgba(0, 0, 0, 0.8)" }, { duration: 0.1 }]
+    ]);
+    backdrop?.classList.remove("hidden");
+  };
+
+  const handleTabClose = async () => {
+    const backdrop = document.getElementById("backdrop");
+    await animate([
+      ["#backdrop", { backgroundColor: "rgba(0, 0, 0, 0)" }, { duration: 0.5 }]
+    ]);
+    backdrop?.classList.add("hidden");
+  };
+
   useEffect(() => {
     handleAnimate();
   }, []);
@@ -58,13 +74,15 @@ export default function Home() {
         <h2 className="text-lg text-center font-semibold text-gray-400">May 3rd - May 8th</h2>
       </motion.div>
 
-      <motion.div initial="initial" animate={isTitleDone ? "animate" : "initial"} variants={containerVariants} id="num" className="flex flex-col md:flex-row gap-8 pb-12">
+      <motion.div initial="initial" animate={isTitleDone ? "animate" : "initial"} variants={containerVariants} id="num" className="z-30 flex flex-col md:flex-row gap-8 pb-12">
         <motion.div variants={itemVariants}><Category name="Amenities" nameSingle="Amenity" description="Add accomodations, tickets, etc." collection="amenities" passExpense={setAmenitiesExpenses}/></motion.div>
         <motion.div variants={itemVariants}><Category name="Ubers" nameSingle="Uber" description="Add all the Ubers, Lyfts, etc." collection="ubers" passExpense={setUbersExpenses}/></motion.div>
         <motion.div variants={itemVariants}><Category name="Food" nameSingle="Food" description="Add food, snacks, drinks, etc." collection="food" passExpense={setFoodExpenses}/></motion.div>  
       </motion.div>
       <div className="h-24"/>
-      <TotalBar amenitiesCollection={amenitiesExpenses} ubersCollection={ubersExpenses} foodCollection={foodExpenses}/>
+      <motion.div id="backdrop" initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }} className="bg-black/80 h-full w-full z-10 fixed inset-0 hidden"></motion.div>
+      <div className="z-20 fixed bg-red-500"><TotalBar amenitiesCollection={amenitiesExpenses} ubersCollection={ubersExpenses} foodCollection={foodExpenses} tabOpen={handleTabOpen} tabClose={handleTabClose}/></div>
+      
     </div>
   );
 }
