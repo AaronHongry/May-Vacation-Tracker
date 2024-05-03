@@ -104,7 +104,7 @@ const AddExpense: React.FC<addExpenseProps> = ({name, nameSingle, description, o
             <AnimatePresence>
                 {isAddOpen && (
                     <motion.div key="backdrop" initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }} animate={{ backgroundColor: "rgba(0, 0, 0, 0.8)", transition: { duration: 0.1} }} exit={{ backgroundColor: "rgba(0, 0, 0, 0)", transition: { duration: 0.5 } }} className={`fixed top-0 left-0 bg-black/80 z-50 w-full h-full justify-end items-center flex flex-col`}>
-                        <motion.div key="add" initial={{ y: "100%" }} animate={{ y: "0%", transition: { duration: 0.4, ease: "backOut" } }} exit={{ y: "100%", transition: { duration: 0.6, ease: "anticipate" } }} className="h-3/5 w-full bg-slate-950 border-2 border-slate-800 rounded-t-3xl flex flex-col items-center pb-6">
+                        <motion.div key="add" initial={{ y: "100%" }} animate={{ y: "0%", transition: { duration: 0.4, ease: "backOut" } }} exit={{ y: "100%", transition: { duration: 0.6, ease: "anticipate" } }} className="h-4/5 w-full bg-slate-950 border-2 border-slate-800 rounded-t-3xl flex flex-col items-center pb-6">
                             <h1 className="text-4xl pt-12 pb-0 font-semibold w-full text-center">Add {nameSingle}</h1>
                             <h2 className="text-sm p-2 pb-8 w-full text-center text-gray-400">{description}</h2>
                             
@@ -130,7 +130,7 @@ const AddExpense: React.FC<addExpenseProps> = ({name, nameSingle, description, o
                                 </div>
                             </div>
 
-                            <div className="w-full pt-7 px-5 pb-6 flex flex-col gap-3">
+                            <div className="w-full pt-7 px-5 flex flex-col gap-3">
                                 <motion.button whileTap={{ scale: 1.1, backgroundColor: "rgb(0, 0, 0)" }} onClick={handleSubmit} className="bg-slate-50 text-slate-950 px-4 py-4 rounded-xl w-full">Submit</motion.button>
                                 <motion.button whileTap={{ scale: 1.1, backgroundColor: "rgb(51 65 85)" }} onClick={() => {setIsAddOpen(false); setExpensePeople([]);}} className="bg-slate-800 text-gray-300 px-4 py-2 rounded-xl w-full">Close</motion.button>
                             </div>

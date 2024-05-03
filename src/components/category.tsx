@@ -131,7 +131,7 @@ const Category: React.FC<CategoryProps> = ({name, nameSingle, description, colle
                   {expenses?.length == 0 && <p className="text-gray-400 text-sm text-center">There are no expenses added!</p>}
                   {expenses?.map(expense =>
                     <motion.div key={expense.id}>
-                      <motion.div exit={{ x: "-30%", opacity: 0, transition: { duration: 1, ease: [0, 1, 0, 1] } }} drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={{ left: 0.2, right: 0 }} onDragStart={(e, i) => {setTapPos(i.point.x);}} onDragEnd={(e, i) => handleDeleteOpen(e, i, expense.id)} whileTap={{ scale: 1.1, backgroundColor: "rgb(51 65 85)"}} onClick={() => {handleExpenseEdit(expense.id)}}>
+                      <motion.div exit={{ x: "-30%", opacity: 0, transition: { duration: 0.4, ease: [0, 1, 0, 1] } }} className="relative" drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={{ left: 0.2, right: 0 }} onDragStart={(e, i) => {setTapPos(i.point.x);}} onDragEnd={(e, i) => handleDeleteOpen(e, i, expense.id)} whileTap={{ scale: 1.1, backgroundColor: "rgb(51 65 85)"}} onClick={() => {handleExpenseEdit(expense.id)}}>
                           <Expense id={expense.id} name={expense.name} amount={expense.amount} people={expense.people} date={expense.date}/>             
                       </motion.div>
                       {expenseOpen == expense.id && <EditExpense id={expense.id} name={name} nameSingle={nameSingle} onExpenseEdit={handleExpensesChanged} isOpen={expenseOpen == expense.id} onClose={handleExpenseClose} currentName={expense.name} currentAmount={expense.amount} currentPeople={expense.people}/>}
