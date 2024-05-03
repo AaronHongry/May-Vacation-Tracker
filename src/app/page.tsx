@@ -31,7 +31,7 @@ export default function Home() {
 
   const handleAnimate = () => {
     animate([
-      ["#title", {y: ["170%", "170%", "170%", "170%", "0%"], x: ["0%", "0%", "0%", "0%", "-0.22%"], opacity: [0, 1, 1, 1, 1, 0]}, {duration: 2, times: [0, 0.15, 0.2, 0.35, 0.65, 0.75], ease: ["easeOut", "easeOut", "easeOut", "anticipate"]}]
+      ["#title", {y: ["140%", "140%", "140%", "140%", "0%"], opacity: [0, 1, 1, 1, 1, 0]}, {duration: 2, times: [0, 0.15, 0.2, 0.35, 0.65, 0.75], ease: ["easeOut", "easeOut", "easeOut", "anticipate"]}]
     ]);
     animate([
       ["#subtitle", {opacity: [0, 0, 1]}, {duration: 2, times: [0, 0.15, 0.25]}]
