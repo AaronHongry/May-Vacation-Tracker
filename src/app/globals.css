@@ -6,9 +6,3 @@
 .tab-scroll-height {
     height: 70%;
 }
-
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-}
