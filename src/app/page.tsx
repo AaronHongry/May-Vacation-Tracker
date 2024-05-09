@@ -81,7 +81,7 @@ export default function Home() {
       </motion.div>
       <div className="h-24"/>
       <motion.div id="backdrop" initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }} className="bg-black/80 h-full w-full z-10 fixed inset-0 hidden"></motion.div>
-      {/*<div className="z-20 fixed bg-red-500"><TotalBar amenitiesCollection={amenitiesExpenses} ubersCollection={ubersExpenses} foodCollection={foodExpenses} tabOpen={handleTabOpen} tabClose={handleTabClose}/></div>*/}
+      <div className="z-20 fixed bg-red-500"><TotalBar amenitiesCollection={amenitiesExpenses} ubersCollection={ubersExpenses} foodCollection={foodExpenses} tabOpen={handleTabOpen} tabClose={handleTabClose}/></div>
       
     </div>
   );
