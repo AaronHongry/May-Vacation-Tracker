@@ -141,7 +141,7 @@ const TotalBar: React.FC<TotalBarProps> = ({amenitiesCollection, ubersCollection
                 <motion.div id="tab" initial={{ y: "0%" }} animate={{ y: "-11.5%", transition: { delay: 1.2, duration: 0.3 } }} onClick={handleTab} className={`h-full fixed left-0 top-full z-50 bg-slate-950 border-t-2 border-slate-800 rounded-t-xl drop-shadow-xl w-full px-5`}>
                     <div className="h-24 w-full flex flex-row justify-between items-center">
                         <h1 className="text-3xl font-extrabold">Total:</h1>
-                        <h1 className="text-3xl font-extrabold">${total}</h1>
+                        <h1 className="text-3xl font-extrabold">${total.toFixed(2)}</h1>
                     </div>
 
                     <Separator className="bg-gray-400"/>
